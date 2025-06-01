@@ -23,16 +23,7 @@ function Workspaces() {
         w
           .filter((w) => !(w.id >= -99 && w.id <= -2)) // filters out special workspaces
           .sort((a, b) => a.id - b.id)
-          .map((w) => (
-            <button
-              cssClasses={bind(hyprland, "focusedWorkspace").as((f) =>
-                w === f ? ["focused"] : [""],
-              )}
-              onClicked={() => w.focus()}
-            >
-              {w.id}
-            </button>
-          )),
+          .map((w) => <button onClicked={() => w.focus()}>{w.id}</button>),
       )}
     </box>
   );
@@ -45,7 +36,7 @@ function Window() {
   // TODO:
   // - add the app icon of the focused client
   return (
-    <box cssClasses={["Window"]} visible={focusedClient.as(Boolean)}>
+    <box visible={focusedClient.as(Boolean)}>
       {focusedClient.as(
         (c) => c && <label label={bind(c, "title").as(String)} />,
       )}
@@ -93,10 +84,7 @@ function BatteryPercentage() {
   const battery = Battery.get_default();
 
   return (
-    <box
-      cssClasses={["BatteryPercentage"]}
-      visible={bind(battery, "isPresent")}
-    >
+    <box visible={bind(battery, "isPresent")}>
       <image iconName={bind(battery, "iconName")} />
       <label label={bind(battery, "percentage").as((p) => `${p * 100}%`)} />
     </box>
@@ -105,7 +93,7 @@ function BatteryPercentage() {
 
 function Power() {
   return (
-    <box cssClasses={["Power"]}>
+    <box>
       <button onClicked={() => exec("wlogout")}>
         <image iconName={"system-log-out"} />
       </button>
