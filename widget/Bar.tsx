@@ -4,6 +4,15 @@ import Wp from "gi://AstalWp";
 import { bind, exec } from "astal";
 import { Gdk, Astal, App, Gtk } from "astal/gtk4";
 
+// TODO: Add all of the following modules:
+// - [x] workspaces
+// - [x] currently focused window
+// - [ ] tray
+// - [ ] media
+// - [ ] network
+// - [x] volume
+// - [x] power menu
+
 function Workspaces() {
   const hyprland = Hyprland.get_default();
 
