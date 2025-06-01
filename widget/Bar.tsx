@@ -54,9 +54,10 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
       <centerbox cssName="centerbox">
         <box hexpand halign={Gtk.Align.START}>
           <Workspaces />
+        </box>
+        <box>
           <Window />
         </box>
-        <box></box>
         <box hexpand halign={Gtk.Align.END}></box>
       </centerbox>
     </window>
