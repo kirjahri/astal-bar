@@ -1,7 +1,8 @@
 import Hyprland from "gi://AstalHyprland";
-import Battery from "gi://AstalBattery";
-import Wp from "gi://AstalWp";
 import { bind, exec } from "astal";
+import Network from "gi://AstalNetwork";
+import Wp from "gi://AstalWp";
+import Battery from "gi://AstalBattery";
 import { Gdk, Astal, App, Gtk } from "astal/gtk4";
 
 // TODO: Add all of the following modules:
@@ -47,6 +48,25 @@ function Window() {
     <box cssClasses={["Window"]} visible={focusedClient.as(Boolean)}>
       {focusedClient.as(
         (c) => c && <label label={bind(c, "title").as(String)} />,
+      )}
+    </box>
+  );
+}
+
+function Wifi() {
+  const network = Network.get_default();
+  const wifi = bind(network, "wifi");
+
+  return (
+    <box visible={wifi.as(Boolean)}>
+      {wifi.as(
+        (w) =>
+          w && (
+            <image
+              iconName={bind(w, "iconName")}
+              tooltipText={bind(w, "ssid")}
+            />
+          ),
       )}
     </box>
   );
@@ -113,6 +133,7 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
           <Window />
         </box>
         <box hexpand halign={Gtk.Align.END}>
+          <Wifi />
           <Volume />
           <BatteryPercentage />
           <Power />
