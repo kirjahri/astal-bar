@@ -1,5 +1,6 @@
 import Hyprland from "gi://AstalHyprland";
 import Battery from "gi://AstalBattery";
+import Wp from "gi://AstalWp";
 import { bind, exec } from "astal";
 import { Gdk, Astal, App, Gtk } from "astal/gtk4";
 
@@ -36,6 +37,23 @@ function Window() {
       {focusedClient.as(
         (c) => c && <label label={bind(c, "title").as(String)} />,
       )}
+    </box>
+  );
+}
+
+function Volume() {
+  const defaultSpeaker = Wp.get_default()?.audio.defaultSpeaker;
+
+  // TODO:
+  // - add the abiliity to change the volume by scrolling on the module
+  return (
+    <box>
+      <image iconName={bind(defaultSpeaker!, "volumeIcon")} />
+      <label
+        label={bind(defaultSpeaker!, "volume").as(
+          (v) => `${Math.round(v * 100)}%`,
+        )}
+      />
     </box>
   );
 }
@@ -84,6 +102,7 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
           <Window />
         </box>
         <box hexpand halign={Gtk.Align.END}>
+          <Volume />
           <BatteryPercentage />
           <Power />
         </box>
