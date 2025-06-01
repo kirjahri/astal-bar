@@ -1,5 +1,5 @@
 import Hyprland from "gi://AstalHyprland";
-import { bind } from "astal";
+import { bind, exec, GLib } from "astal";
 import { Gdk, Astal, App, Gtk } from "astal/gtk4";
 
 function Workspaces() {
@@ -39,6 +39,14 @@ function Window() {
   );
 }
 
+function Power() {
+  return (
+    <button onClicked={() => exec("wlogout")}>
+      <image iconName={"system-log-out"} />
+    </button>
+  );
+}
+
 export default function Bar(gdkmonitor: Gdk.Monitor) {
   const { TOP, LEFT, RIGHT } = Astal.WindowAnchor;
 
@@ -58,7 +66,9 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
         <box>
           <Window />
         </box>
-        <box hexpand halign={Gtk.Align.END}></box>
+        <box hexpand halign={Gtk.Align.END}>
+          <Power />
+        </box>
       </centerbox>
     </window>
   );
