@@ -56,9 +56,11 @@ function BatteryPercentage() {
 
 function Power() {
   return (
-    <button onClicked={() => exec("wlogout")}>
-      <image iconName={"system-log-out"} />
-    </button>
+    <box cssClasses={["Power"]}>
+      <button onClicked={() => exec("wlogout")}>
+        <image iconName={"system-log-out"} />
+      </button>
+    </box>
   );
 }
 
