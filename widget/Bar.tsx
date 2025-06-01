@@ -28,8 +28,15 @@ function Workspaces() {
 
 function Window() {
   const hyprland = Hyprland.get_default();
+  const focusedClient = bind(hyprland, "focusedClient");
 
-  return <label label={bind(hyprland, "focusedClient").as((f) => f.title)} />;
+  return (
+    <box cssClasses={["Window"]} visible={focusedClient.as(Boolean)}>
+      {focusedClient.as(
+        (c) => c && <label label={bind(c, "title").as(String)} />,
+      )}
+    </box>
+  );
 }
 
 export default function Bar(gdkmonitor: Gdk.Monitor) {
