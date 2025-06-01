@@ -32,6 +32,8 @@ function Window() {
   const hyprland = Hyprland.get_default();
   const focusedClient = bind(hyprland, "focusedClient");
 
+  // TODO:
+  // - add the app icon of the focused client
   return (
     <box cssClasses={["Window"]} visible={focusedClient.as(Boolean)}>
       {focusedClient.as(
@@ -45,7 +47,7 @@ function Volume() {
   const defaultSpeaker = Wp.get_default()?.audio.defaultSpeaker;
 
   // TODO:
-  // - add the abiliity to change the volume by scrolling on the module
+  // - make a slider appear when you hover over the module
   return (
     <box>
       <image iconName={bind(defaultSpeaker!, "volumeIcon")} />
