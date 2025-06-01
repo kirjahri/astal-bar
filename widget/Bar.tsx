@@ -1,5 +1,6 @@
 import Hyprland from "gi://AstalHyprland";
-import { bind, exec, GLib } from "astal";
+import Battery from "gi://AstalBattery";
+import { bind, exec } from "astal";
 import { Gdk, Astal, App, Gtk } from "astal/gtk4";
 
 function Workspaces() {
@@ -39,6 +40,20 @@ function Window() {
   );
 }
 
+function BatteryPercentage() {
+  const battery = Battery.get_default();
+
+  return (
+    <box
+      cssClasses={["BatteryPercentage"]}
+      visible={bind(battery, "isPresent")}
+    >
+      <image iconName={bind(battery, "iconName")} />
+      <label label={bind(battery, "percentage").as((p) => `${p * 100}%`)} />
+    </box>
+  );
+}
+
 function Power() {
   return (
     <button onClicked={() => exec("wlogout")}>
@@ -67,6 +82,7 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
           <Window />
         </box>
         <box hexpand halign={Gtk.Align.END}>
+          <BatteryPercentage />
           <Power />
         </box>
       </centerbox>
